@@ -1,0 +1,48 @@
+
+    <div class="row">
+        
+        <div class="col-6">
+            <h3>Productos</h3>
+        </div>
+        <div class="col-6">
+            <!-- Mando como indice al -1, significa que hay que crearlo poruqe no existe el registro -->
+            <button class="btn btn-success"
+                    [routerLink]="['/productos/nuevo']">
+                Agregar
+            </button>
+        </div>
+
+    </div>
+
+    <div class="col-8">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let producto of productos; let i = index;">
+                <th scope="row">{{ i }}</th>
+                <td>{{ producto.nombre }}</td>
+                <td>{{ producto.cantidad }}</td>
+                <td>{{ producto.precio }}</td>
+                <td>
+                    <button class="btn btn-primary"
+                            [routerLink]="['/productos/editar', i]">
+                        Editar
+                    </button>
+
+                    <button class="btn btn-danger">
+                        Borrar
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+

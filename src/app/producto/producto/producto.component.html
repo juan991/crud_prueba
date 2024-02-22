@@ -1,0 +1,82 @@
+
+<div class="col-6">
+  <h3 *ngIf="!actualizar">
+    Nuevo producto
+  </h3>
+  <h3 *ngIf="actualizar">
+    Modificar producto
+  </h3>
+</div>
+
+<button type="button" 
+        class="btn btn-secondary" 
+        [routerLink]="['/productos/listar']">
+  Volver
+</button>
+
+<div class="row">
+
+    <div class="col-6">
+
+        <!-- Con FormGroup enlazamos el formulario con el html -->
+        <!-- Con ngSubmit enviamos el formulario, el botón debe estar dentro de la etiqueta <form> -->
+        <form [formGroup]="productoForm" (ngSubmit)="onSubmit()">
+            
+            <!-- Nombre -->
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Nombre</label>
+              <!-- con formControlName enlazamos cada control con un input -->
+              <input type="text" 
+                     class="form-control" 
+                     id="exampleInputEmail1" 
+                     aria-describedby="emailHelp"
+                     formControlName="nombre">
+            </div>
+        
+            <!-- Cantidad -->
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">Cantidad</label>
+              <input type="number" 
+                     class="form-control" 
+                     id="exampleInputPassword1"
+                     formControlName="cantidad">
+            </div>
+            
+            <!-- Precio -->
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">Precio</label>
+              <input type="number" 
+                     class="form-control" 
+                     id="exampleInputPassword1"
+                     formControlName="precio">
+            </div>
+            
+        
+            
+            <button type="submit" 
+                    class="btn btn-primary"
+                    *ngIf="actualizar">
+                Actualizar
+            </button>
+            <button type="submit" 
+                    class="btn btn-primary"
+                    *ngIf="!actualizar">
+                Agregar
+            </button>
+          </form>
+
+          <!-- Si el botón está fuera del formulario, no puede ser de tipo submit -->
+          <!-- Por este motivo debemos agregarle el llamado a la función -->
+          <button class="btn btn-primary"
+                  *ngIf="false"
+                  (click)="onSubmit()">
+                Agregar (ejemplo)
+          </button>
+          <!-- Nota: el botón no está implementado, es solo un ejemplo -->
+
+    </div>
+
+    <!-- Visualizar el getter del formulario pasado por pipe json -->
+    {{ currentProducto | json }}
+
+</div>
