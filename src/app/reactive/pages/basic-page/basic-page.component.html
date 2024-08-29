@@ -4,20 +4,30 @@
 <div class="row">
     <div class="col">
 
-        <form autocomplete="off">
+        <!-- El autocomplete en "off" es para que las validaciones no sean del navegador -->
+        <!-- Para enlazar el objeto myForm usamos el [formGroup] -->
+        <!-- Para que el submit lo maneje angular debemos usar (ngSubmit) -->
+        <form [formGroup]="myForm" 
+              (ngSubmit)="onSave()"   
+              autocomplete="off">
 
             <!-- Campo de producto -->
             <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label">Producto</label>
                 <div class="col-sm-9">
-
+                    
+                    <!-- Para vincular cada propiedad del objeto myForm usamos el atributo formControlName -->
                     <input type="text"
                            class="form-control"
-                           placeholder="Nombre del producto">
+                           placeholder="Nombre del producto"
+                           formControlName="name">
 
-                    <span class="form-text text-danger">
+                    <!-- A los métodos le pasamos como parámetro el valor del formControlName -->
+                    <span *ngIf="noEsCampoValido('name')"
+                          class="form-text text-danger">
+                          
                         <!-- Debe de ser de 3 letras -->
-                        error message
+                        {{ getCampoError('name') }}
                     </span>
                 </div>
             </div>
@@ -28,8 +38,13 @@
                 <div class="col-sm-9">
                     <input type="number"
                            class="form-control"
-                           placeholder="Precio del producto">
-                    <span class="form-text text-danger">
+                           placeholder="Precio del producto"
+                           formControlName="price">
+
+                    <span *ngIf="noEsCampoValido('price')" 
+                          class="form-text text-danger">
+
+                        <!-- Si la opción es única no tiene sentido invocar sl método getCampoError -->  
                         El precio debe de ser 0 o mayor
                     </span>
                 </div>
@@ -41,9 +56,12 @@
                 <div class="col-sm-9">
                     <input type="number"
                            class="form-control"
-                           placeholder="Existencias del producto">
+                           placeholder="Existencias del producto"
+                           formControlName="inStorage">
 
-                    <span class="form-text text-danger">
+                    <span *ngIf="noEsCampoValido('inStorage')" 
+                          class="form-text text-danger">
+
                          Las existencias deben de ser 0 o mayor
                     </span>
                 </div>
@@ -73,22 +91,29 @@
     <div class="col">
 
         <span>Valid</span>
-        <pre>{{ 'objeto' | json }}</pre>
+        <pre>{{ myForm.valid | json }}</pre>
 
+        <!-- No se toco el formulario de ninguna manera -->
         <span>Pristine</span>
-        <pre>{{ 'objeto' | json }}</pre>
+        <pre>{{ myForm.pristine | json }}</pre>
 
         <span>Touched</span>
-        <pre>{{ 'objeto' | json }}</pre>
+        <pre>{{ myForm.touched | json }}</pre>
 
         <span>Value</span>
-        <pre>{{ 'objeto' | json }}</pre>
+        <pre>{{ myForm.value | json }}</pre>
 
         <span>Precio</span>
-        <pre>{{ 'objeto' | json }}</pre>
-
+        <pre>{{ myForm.controls['price'].value | json }}</pre>
+        
+        <span>Precio - Errors</span>
+        <pre>{{ myForm.controls['price'].errors | json }}</pre>
+        
         <span>Producto</span>
-        <pre>{{ 'objeto' | json }}</pre>
+        <pre>{{ myForm.controls['name'].value | json }}</pre>
+
+        <span>Producto - Errors</span>
+        <pre>{{ myForm.controls['name'].errors | json }}</pre>
     </div>
 </div><h2>Reactivos: Básicos</h2>
 <hr>

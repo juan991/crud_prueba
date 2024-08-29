@@ -34,10 +34,11 @@ export class ProductoComponent implements OnInit {
   ) {}
 
   // Getter para parsear los valores del formulario al tipo definido en la interface (en este caso tipo "Producto")
-  // Esto es necesario porque al definir el formulario no puedo darle la forma de la interface
+  // Para hacer el submit de los datos capturados del formulario, con el tipificado de la interface 
+  // Esto es necesario porque al definir el formulario no puedo darle el tipo de la interface
   get currentProducto(): Producto {
     const product = this.productoForm.value as Producto;  // El "as" parsea el objeto 
-    return product;
+    return product;  // 
   } 
 
   ngOnInit(): void {
