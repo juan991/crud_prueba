@@ -1,13 +1,14 @@
 <h2>Reactivos: <small> Dinámicos </small></h2>
 <hr>
 
-<form autocomplete="off">
+<form [formGroup]="myForm" (ngSubmit)="onSubmit()" autocomplete="off">
 
     <!-- Nombre -->
     <div class="mb-3 row">
         <label class="col-sm-3 col-form-label">Nombre</label>
         <div class="col-sm-9">
             <input class="form-control"
+                   formControlName="name"
                    placeholder="Nombre de la persona">
             <span class="form-text text-danger">
                    error message
@@ -37,12 +38,14 @@
     <!-- Lista de Juegos Favoritos -->
     <div class="mb-3 row">
         <label class="col-sm-3 col-form-label">Favoritos</label>
-        <div class="col-sm-9">
+        <!-- El input que se encuentra dentro del del siguiente div responde al arreglo  -->
+        <div class="col-sm-9" formArrayName="favouriteGames">
 
-            <div class="mb-1">
-
+            <!-- Este div debe ser replicarse mediante un *ngFor -->
+            <div class="mb-1" *ngFor="let favourite of favouriteGames.controls; let idx = index">
+                <!-- Se le agrega .controls porque el objeto FormArray tiene los controles dentro  -->
                 <div class="input-group">
-                    <input class="form-control">
+                    <input class="form-control" [formControlName]="idx">
 
                     <button class="btn btn-outline-danger"
                             type="button">

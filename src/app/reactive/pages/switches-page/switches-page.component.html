@@ -79,6 +79,61 @@
 
 </form>
 
+<!-- Sumatoria de entradas, en reemplazo del "formularioEntradas" -->
+<h1>Selección de entradas:</h1>
+<div *ngFor="let entrada of calculoEntradas; let i = index">
+
+    <div>
+        <div><label>Entrada {{ entrada.descripcion }}</label></div>
+        <span>Costo unitario: {{ entrada.precio }}</span>
+    </div>
+
+    
+    <span>cantidad: {{ entrada.cantidadSeleccionadas }} </span>
+    
+    <button (click)="calcularEntradas(i)">+</button>
+    <button (click)="calcularEntradas(i, false)">-</button>
+    
+    <span>costo: $ {{ entrada.costoParcial }} </span>
+
+
+</div>
+<!-- Fin Sumatoria de entradas -->
+
+<!-- Confirmar Selección -->
+<button (click)="confirmarSeleccion()">
+    Confirmar Selección
+</button>
+<label> Costo Total: $ {{ costoTotal }} </label>
+<!-- Confirmar Selección -->
+
+
+<!-- Este seria un formulario que quizas sea un arreglo -->
+<form [formGroup]="formularioEntradas"
+      (ngSubmit)="guardarCambios()"
+      autocomplete="off">
+
+      <!-- Campo de producto -->
+      <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">Producto</label>
+        <div class="col-sm-9">
+            
+            <!-- Para vincular cada propiedad del objeto myForm usamos el atributo formControlName -->
+            <!-- <input type="number" class="form-control" placeholder="elija la cantidad de entradas" formControlName="name"> -->
+
+            <!-- A los métodos le pasamos como parámetro el valor del formControlName -->
+            <!-- <span *ngIf="noEsCampoValido('name')" class="form-text text-danger"> -->
+                  
+                <!-- Debe de ser de 3 letras -->
+                <!-- {{ getCampoError('name') }} -->
+            <!-- </span> -->
+        </div>
+    </div>
+
+</form>
+
+
+
 
 <h5>Valor del formulario</h5>
 <pre>{{ 'object' | json }}</pre>
